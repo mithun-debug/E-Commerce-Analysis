@@ -2,33 +2,32 @@
 
 ## 📌 Project Overview
 
-This project demonstrates SQL-based data analysis on an E-Commerce database using MySQL. The objective is to extract meaningful business insights related to customer behavior, product performance, sales trends, and revenue generation by writing optimized SQL queries.
+This project focuses on analyzing an E-Commerce database using MySQL to solve real-world business problems through SQL queries. The analysis covers customer behavior, product performance, sales trends, and revenue insights to support business decision-making.
 
-The project simulates real-world business scenarios and answers key analytical questions that help improve marketing strategies, customer retention, inventory planning, and overall business decision-making.
+The project demonstrates the practical application of SQL in extracting meaningful insights from relational databases using joins, aggregate functions, subqueries, Common Table Expressions (CTEs), and window functions.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Project Objectives
 
 - Analyze customer purchasing behavior.
-- Identify top-performing products and categories.
-- Evaluate customer order frequency.
-- Calculate product-wise and category-wise revenue.
-- Discover premium products based on purchasing patterns.
-- Generate actionable business insights using SQL.
+- Identify high-value markets and customer segments.
+- Evaluate product performance and revenue trends.
+- Monitor month-on-month sales and customer growth.
+- Support inventory, marketing, and business strategy decisions using SQL.
 
 ---
 
 ## 🗂 Dataset
 
-The analysis is performed using four relational tables.
+The project uses four relational tables:
 
 | Table | Description |
 |--------|-------------|
-| Customers | Contains customer information such as Customer ID, Name,|
-| Orders | Stores order details including Order ID, Customer ID ,Order Date and Total_amount |
-| OrderDetails | Contains Product ID, Order ID ,Quantity purchased and Price_per_unit |
-| Products | Contains Product_id, Product Name, Category and Price. |
+| **Customers** | Customer information including customer ID, name and location |
+| **Orders** | Order details including customer ID, order date, and total amount |
+| **OrderDetails** | Product-wise order information including quantity and price per unit |
+| **Products** | Product information including category and product name |
 
 ---
 
@@ -37,48 +36,45 @@ The analysis is performed using four relational tables.
 ```
 Customers
 ----------
-CustomerID (PK)
-CustomerName
-City
-Country
-      |
-      |
-      | CustomerID
-      |
+customer_id (PK)
+customer_name
+location
+        │
+        │ customer_id
+        ▼
 Orders
 ----------
-OrderID (PK)
-CustomerID (FK)
-OrderDate
-      |
-      |
-      | OrderID
-      |
+order_id (PK)
+customer_id (FK)
+order_date
+total_amount
+        │
+        │ order_id
+        ▼
 OrderDetails
 --------------
-OrderID (FK)
-ProductID (FK)
-Quantity
-      |
-      |
-      | ProductID
-      |
+order_id (FK)
+product_id (FK)
+quantity
+price_per_unit
+        │
+        │ product_id
+        ▼
 Products
 --------------
-ProductID (PK)
-ProductName
-Category
-Price
+product_id (PK)
+name
+category
+price
 ```
 
 ---
 
-## 🛠 Technologies Used
+## 🛠 Tools & Technologies
 
 - MySQL
 - MySQL Workbench
 - SQL
-- Git
 - GitHub
 
 ---
@@ -86,29 +82,25 @@ Price
 ## 📚 SQL Concepts Used
 
 - SELECT
-- WHERE
-- ORDER BY
 - GROUP BY
+- ORDER BY
 - HAVING
 - INNER JOIN
-- Aggregate Functions
-- CASE Statement
+- Aggregate Functions (COUNT, SUM, AVG)
+- DISTINCT
 - Subqueries
 - Common Table Expressions (CTEs)
-- Aliases
-- Sorting and Filtering
+- Window Functions (LAG)
+- DATE_FORMAT()
+- LIMIT
 
 ---
 
 # 📊 Business Problems Solved
 
-### 1. Identify the Top 3 Cities with the Highest Number of Customers
+### Q1. Identify the top 3 cities with the highest number of customers to determine key markets for targeted marketing and logistic optimization.
 
-**Objective**
-
-Determine the major customer markets to support targeted marketing campaigns and logistics optimization.
-
-**SQL Concepts Used**
+**Concepts Used**
 
 - GROUP BY
 - COUNT()
@@ -117,137 +109,120 @@ Determine the major customer markets to support targeted marketing campaigns and
 
 ---
 
-### 2. Customer Segmentation Based on Order Frequency
+### Q2. Determine how many customers fall into each order frequency category based on the number of orders they have placed.
+
+**Concepts Used**
+
+- Subquery
+- COUNT()
+- GROUP BY
+
+---
+
+### Q3. Identify products where the average purchase quantity per order is 2 but with a high total revenue, suggesting premium product trends.
+
+**Concepts Used**
+
+- AVG()
+- SUM()
+- GROUP BY
+- HAVING
+- ORDER BY
+
+---
+
+### Q4. For each product category, calculate the unique number of customers purchasing from it.
 
 **Objective**
 
-Classify customers into different purchasing categories such as:
+Understand which product categories have wider appeal across the customer base.
 
-- One-Time Customers
-- Occasional Customers
-- Frequent Customers
-- Loyal Customers
+**Concepts Used**
 
-**SQL Concepts Used**
-
+- INNER JOIN
+- COUNT(DISTINCT)
 - GROUP BY
-- COUNT()
-- CASE
+
+---
+
+### Q5. Analyze the month-on-month percentage change in total sales to identify growth trends.
+
+**Concepts Used**
+
+- DATE_FORMAT()
+- SUM()
+- Window Function (LAG)
 - Subquery
 
 ---
 
-### 3. Identify Premium Products
+### Q6. Examining how the average order value changes month-on-month. Insights can guide pricing and promotional strategies to enhance order value.
 
-**Objective**
+**Concepts Used**
 
-Find products having an average purchase quantity of 2 but generating high revenue, indicating premium product trends.
+- Common Table Expression (CTE)
+- AVG()
+- Window Function (LAG)
 
-**SQL Concepts Used**
+---
+
+### Q7. Based on sales data, identify products with the fastest turnover rates, suggesting high demand and the need for frequent restocking.
+
+**Concepts Used**
+
+- COUNT()
+- GROUP BY
+- ORDER BY
+- LIMIT
+
+---
+
+### Q8. List products purchased by less than 40% of the customer base, indicating potential mismatches between inventory and customer interest.
+
+**Concepts Used**
 
 - INNER JOIN
-- AVG()
-- SUM()
+- COUNT(DISTINCT)
 - HAVING
+- Subquery
+
+---
+
+### Q9. Evaluate the month-on-month growth rate in the customer base to understand the effectiveness of marketing campaigns and market expansion efforts.
+
+**Concepts Used**
+
+- Common Table Expression (CTE)
+- MIN()
+- DATE_FORMAT()
 - GROUP BY
 
 ---
 
-### 4. Revenue Generated by Each Product
+### Q10. Identify the months with the highest sales volume, aiding in planning for stock levels, marketing efforts, and staffing in anticipation of peak demand periods.
 
-**Objective**
-
-Calculate the total revenue generated by every product.
-
-**SQL Concepts Used**
+**Concepts Used**
 
 - SUM()
-- GROUP BY
-- INNER JOIN
-
----
-
-### 5. Best Selling Products
-
-**Objective**
-
-Identify products with the highest quantity sold.
-
-**SQL Concepts Used**
-
-- SUM()
-- ORDER BY
-- GROUP BY
-
----
-
-### 6. Category-wise Revenue Analysis
-
-**Objective**
-
-Determine which product categories contribute the highest revenue.
-
-**SQL Concepts Used**
-
-- GROUP BY
-- SUM()
-- INNER JOIN
-
----
-
-### 7. Top Customers by Revenue
-
-**Objective**
-
-Identify customers contributing the highest revenue to the business.
-
-**SQL Concepts Used**
-
-- Multiple INNER JOINs
-- SUM()
+- DATE_FORMAT()
 - GROUP BY
 - ORDER BY
+- LIMIT
 
 ---
 
-### 8. Average Order Value
+# 📈 Key Business Insights
 
-**Objective**
-
-Calculate the average revenue generated per order.
-
-**SQL Concepts Used**
-
-- AVG()
-- SUM()
-
----
-
-### 9. Product Purchase Analysis
-
-**Objective**
-
-Analyze purchasing patterns to identify customer preferences.
-
----
-
-### 10. Sales Performance Analysis
-
-**Objective**
-
-Evaluate sales performance using revenue and order trends.
-
----
-
-# 📈 Business Insights
-
-- Identified the top customer cities for targeted marketing campaigns.
-- Segmented customers based on purchasing frequency to improve customer retention strategies.
-- Identified premium products generating high revenue despite low purchase quantities.
-- Determined top-selling products for inventory optimization.
-- Evaluated category-wise revenue contribution.
-- Identified high-value customers contributing significantly to business revenue.
-- Generated actionable insights for sales, marketing, and inventory planning.
+- Identified the top customer locations for targeted marketing and logistics planning.
+- Analyzed customer ordering patterns to understand purchasing frequency.
+- Identified premium products generating high revenue with moderate purchase quantities.
+- Evaluated customer interest across different product categories.
+- Tracked month-on-month sales trends to monitor business growth.
+- Examined changes in average order value to support pricing strategies.
+- Identified high-demand products for inventory planning and replenishment.
+- Highlighted products with low customer reach for inventory optimization.
+- Monitored customer acquisition trends over time.
+- Determined peak sales months for improved demand forecasting and resource planning.
 
 ---
 
@@ -255,37 +230,29 @@ Evaluate sales performance using revenue and order trends.
 
 - SQL Query Writing
 - Relational Database Management
-- Data Analysis
-- Business Intelligence
-- Customer Segmentation
-- Revenue Analysis
 - Data Aggregation
-- Database Joins
-- Problem Solving
-- Analytical Thinking
+- Business Analytics
+- Customer Segmentation
+- Sales Trend Analysis
+- Revenue Analysis
+- Product Performance Analysis
+- Window Functions
+- Data-Driven Decision Making
 
 ---
 
 # 📂 Project Structure
 
 ```
-E-Commerce-SQL-Data-Analysis
+E-Commerce-Data-Analysis/
 │
-├── Dataset
-│   ├── Customers.csv
-│   ├── Orders.csv
-│   ├── OrderDetails.csv
-│   └── Products.csv
+├── Customers.csv
+├── Orders.csv
+├── OrderDetails.csv
+├── Products.csv
 │
-├── SQL Queries
-│   ├── Database_Setup.sql
-│   ├── Business_Queries.sql
-│   └── Advanced_Analysis.sql
+├── Ecommerce_SQL_Analysis.sql
 │
-├── Images
-│   ├── ER_Diagram.png
-│   ├── Query_Results.png
-│   └── Dashboard.png (Optional)
 │
 └── README.md
 ```
@@ -294,36 +261,24 @@ E-Commerce-SQL-Data-Analysis
 
 # 🚀 Learning Outcomes
 
-Through this project, I strengthened my understanding of:
+Through this project, I gained hands-on experience in:
 
-- SQL for Business Analytics
-- Database Design
-- Data Aggregation
-- Customer Analytics
-- Revenue Analysis
-- Product Performance Analysis
-- Writing efficient SQL queries
-- Converting business problems into SQL solutions
+- Writing SQL queries to solve real-world business problems.
+- Performing customer, product, and sales analysis.
+- Working with relational databases and multiple table joins.
+- Using aggregate functions and window functions for analytical reporting.
+- Converting business requirements into SQL-based analytical solutions.
+- Extracting actionable insights to support business decision-making.
 
 ---
 
-# 📌 Future Improvements
+## 👨‍💻 Author
 
-- Build an interactive Power BI dashboard using the same dataset.
-- Perform customer segmentation using RFM Analysis.
-- Develop SQL Stored Procedures and Views.
-- Add advanced analytical queries using Window Functions.
-- Perform sales forecasting using Python.
+**Mithun M**
 
----
+Aspiring Data Analyst | Biomedical Engineering Graduate
 
-# 👨‍💻 Author
-
-**Mithun Nair**
-
-Biomedical Engineering Graduate | Aspiring Data Analyst
-
-### Skills
+### Technical Skills
 
 - SQL
 - Python
@@ -334,4 +289,4 @@ Biomedical Engineering Graduate | Aspiring Data Analyst
 
 ---
 
-⭐ If you found this project useful, consider giving it a Star.
+## ⭐ If you found this project helpful, consider giving it a Star!
