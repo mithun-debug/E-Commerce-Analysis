@@ -288,5 +288,3 @@ Aspiring Data Analyst | Biomedical Engineering Graduate
 - Data Visualization
 
 ---
-
-## ⭐ If you found this project helpful, consider giving it a Star!
